@@ -1,4 +1,4 @@
-const { executeHasura } = require('../../utils/executeHasura');
+const { executeHasura } = require('../../utils/hasura/executeHasura');
 const getOrdersQuery = require('./queries/getOrdersByUser.query');
 const createOrderMutation = require('./mutations/createOrder.mutation');
 

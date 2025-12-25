@@ -1,4 +1,4 @@
-const { executeHasura } = require('../../utils/executeHasura');
+const { executeHasura } = require('../../utils/hasura/executeHasura');
 
 const listUsersQuery = require('./queries/listUsers.query');
 const getUserByIdQuery = require('./queries/getUserById.query');

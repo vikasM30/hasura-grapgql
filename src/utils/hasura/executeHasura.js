@@ -1,4 +1,4 @@
-const hasuraClient = require('../config/hasuraClient');
+const hasuraClient = require('../../config/hasuraClient');
 
 async function executeHasura(query, variables = {}) {
   const res = await hasuraClient.post('', { query, variables });
