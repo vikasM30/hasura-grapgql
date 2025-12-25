@@ -1,22 +1,18 @@
 const { executeHasura } = require('../../utils/hasura/executeHasura');
 
-const listUsersQuery = require('./queries/listUsers.query');
-const getUserByIdQuery = require('./queries/getUserById.query');
-const searchUsersQuery = require('./queries/searchUsers.query');
+const queries = require('./queries');
+const mutations = require('./mutations');
 
-const createUserMutation = require('./mutations/createUser.mutation');
-const updateUserMutation = require('./mutations/updateUser.mutation');
-const deleteUserMutation = require('./mutations/deleteUser.mutation');
 const { buildWhere } = require('../../utils/hasura/whereBuilder');
 
 module.exports = {
   listUsers: async () => {
-    const data = await executeHasura(listUsersQuery);
+    const data = await executeHasura(queries.listUsers);
     return data.users;
   },
 
   getUserById: async (id) => {
-    const data = await executeHasura(getUserByIdQuery, { id });
+    const data = await executeHasura(queries.getUserById, { id });
     return data.users_by_pk;
   },
 
@@ -25,13 +21,12 @@ module.exports = {
 
     const where = buildWhere({ filters, logic });
 
-    const data = await executeHasura(searchUsersQuery, { where });
-
+    const data = await executeHasura(queries.searchUsers, { where });
     return data.users;
   },
 
   createUser: async ({ input }) => {
-    const data = await executeHasura(createUserMutation, { object: input });
+    const data = await executeHasura(mutations.createUser, { object: input });
     return data.insert_users_one;
   },
 
@@ -59,7 +54,7 @@ module.exports = {
     return { success: false, message: 'Nothing to update', user: null };
   }
 
-  const data = await executeHasura(updateUserMutation, {
+  const data = await executeHasura(mutations.updateUser, {
     id,
     _set: updateFields
   });
@@ -72,7 +67,7 @@ module.exports = {
   },
 
   deleteUser: async (id) => {
-    await executeHasura(deleteUserMutation, { id });
+    await executeHasura(mutations.deleteUser, { id });
     return true;
   }
 }
