@@ -7,16 +7,15 @@ const cors = require('cors');
 
 // const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
+const typeDefs = require('./graphql/typeDefs');
 
-const baseSchema = require('./graphql/schema');
-const user = require('./modules/user');
+const baseSchema = require('./graphql/baseSchema');
 
 async function start() {
   const app = express();
 
   const server = new ApolloServer({
-    // typeDefs,
-    typeDefs: [baseSchema, user.typedefs],
+    typeDefs: [baseSchema, typeDefs],
     resolvers
   });
 

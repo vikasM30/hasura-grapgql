@@ -1,5 +1,5 @@
 const user = require('../modules/user');
 
 module.exports = [
-  user.resolvers,
+  user.typedefs,
 ];
