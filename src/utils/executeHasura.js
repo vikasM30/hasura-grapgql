@@ -3,6 +3,7 @@ const hasuraClient = require('../config/hasuraClient');
 async function executeHasura(query, variables = {}) {
   const res = await hasuraClient.post('', { query, variables });
 
+  console.log('Hasura Response:', res.data);
   if (res.data.errors) {
     throw new Error(res.data.errors[0].message);
   }
