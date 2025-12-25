@@ -26,7 +26,7 @@ module.exports = {
   },
 
   createUser: async ({ input }) => {
-    const data = await executeHasura(mutations.createUser, { object: input });
+    const data = await executeHasura(mutations.createUser, { object: input.data });
     return data.insert_users_one;
   },
 
@@ -35,19 +35,19 @@ module.exports = {
     return { success: false, message: 'User id is required', user: null };
   }
 
-  if (!input || Object.keys(input).length === 0) {
+  if (!input.data || Object.keys(input.data).length === 0) {
     return { success: false, message: 'Nothing to update', user: null };
   }
 
   // Build update object dynamically
   const updateFields = {};
 
-  if (input.name !== undefined) {
-    updateFields.name = input.name;
+  if (input.data.name !== undefined) {
+    updateFields.name = input.data.name;
   }
 
-  if (input.email !== undefined) {
-    updateFields.email = input.email;
+  if (input.data.email !== undefined) {
+    updateFields.email = input.data.email;
   }
 
   if (Object.keys(updateFields).length === 0) {
