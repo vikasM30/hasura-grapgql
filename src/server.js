@@ -1,17 +1,22 @@
 require('dotenv').config();
 const express = require('express');
 const { ApolloServer } = require('@apollo/server');
+
 const { expressMiddleware } = require('@apollo/server/express4');
 const cors = require('cors');
 
-const typeDefs = require('./graphql/typeDefs');
+// const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers');
+
+const baseSchema = require('./graphql/schema');
+const user = require('./modules/user');
 
 async function start() {
   const app = express();
 
   const server = new ApolloServer({
-    typeDefs,
+    // typeDefs,
+    typeDefs: [baseSchema, user.typedefs],
     resolvers
   });
 

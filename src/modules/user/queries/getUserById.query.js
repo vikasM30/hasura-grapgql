@@ -1,5 +1,5 @@
 module.exports = `
-  query ($id: uuid!) {
+  query GetUserById($id: uuid!) {
     users_by_pk(id: $id) {
       id
       name
